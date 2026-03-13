@@ -109,9 +109,9 @@ def _oemer_python(img_path):
     )
     extract(args)
 
-# oemer salva como output/<nome_sem_extensao>.musicxml
-base_name  = os.path.splitext(os.path.basename(ARQUIVO_LOCAL))[0]
-xml_omr    = f'output/{base_name}.musicxml'
+# oemer salva como output/<nome_completo_incluindo_extensao>.musicxml
+# ex: Tarantella_napoletana.jpeg → output/Tarantella_napoletana.jpeg.musicxml
+xml_omr = f'output/{os.path.basename(ARQUIVO_LOCAL)}.musicxml'
 
 try:
     _oemer_python(ARQUIVO_LOCAL)
@@ -287,7 +287,7 @@ print()
 print("╔══════════════════════════════════════════════════════════╗")
 print("║          RESUMO — Partitura IA (lucaseduardo79)          ║")
 print("╠══════════════════════════════════════════════════════════╣")
-peca = os.path.splitext(os.path.basename(ARQUIVO_LOCAL))[0].replace('_', ' ')
+peca = os.path.splitext(os.path.splitext(os.path.basename(ARQUIVO_LOCAL))[0])[0].replace('_', ' ')
 print(f"║  Peça           : {peca:<42}║")
 print(f"║  Fonte          : {origem[:42]:<42}║")
 print(f"║  Tom original   : {(k.tonic.name + ' ' + k.mode):<42}║")
