@@ -1,0 +1,7 @@
+# Cache do oemer (baixado em runtime, não versionar)
+output/*.cache
+__pycache__/
+*.pyc
+
+# Dados temporários do OpenCV
+*.tmp

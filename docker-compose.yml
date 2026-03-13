@@ -1,0 +1,26 @@
+services:
+  partitura-ia:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lucaseduardo79/partitura-ia:latest
+    container_name: partitura-ia
+    volumes:
+      # Arquivos do projeto — output/ aparece aqui em tempo real
+      - .:/workspace
+      # Modelos ONNX do oemer — baixados uma vez, reutilizados sempre
+      - oemer-checkpoints:/opt/conda/lib/python3.11/site-packages/oemer/checkpoints
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  oemer-checkpoints:
